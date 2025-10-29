@@ -1,26 +1,40 @@
-@import "tailwindcss";
+/*
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+#FCF9EA
+#BADFDB
+#FFA4A4
+#FFBDBD
+
+*/
+
+.bodyParent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+.cassetteTape {
+    width: 25%;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (max-width: 768px) {
+  .cassetteTape {
+    width: 75%;
   }
 }
 
+@keyframes tapeAnimation {
+  from {transform: translateY(0px);}
+  to {transform: translateY(100px);}
+}
+
+.translateImg {
+  animation-name: tapeAnimation; 
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #FCF9EA;
   font-family: Arial, Helvetica, sans-serif;
 }
