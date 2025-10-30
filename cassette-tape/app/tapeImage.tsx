@@ -1,13 +1,23 @@
-import React, { ReactNode } from "react"
+"use client"
+import React from "react"
+import Image from "next/image";
+import { createClient } from '@/utils/supabase/server';
 
-interface TapeImageComponentProps {
-    onButtonClick: (message: string) => void; // Function taking a string and returning nothing
-}
+const TapeImage: React.FC = () => {
 
-const TapeImage : React.FC<TapeImageComponentProps> = ({onButtonClick}) => {
-    let [translate, setTranslate] = React.useState(false);
-    // return <img onClick={() => {setTranslate(true)}} className={`cassetteTape ${translate ? "translateImg" : ""}`} src="/cassette-tape.png"/>
-    return (<img onClick={() => onButtonClick("Hello from Child!")} src="/cassette-tape.png"/>)
+  let [translate, setTranslate] = React.useState(false);
+
+  return (
+    <div >
+      <main>
+        <div className="bodyParent">
+          <img onClick={() => {setTranslate(true)}} className={`cassetteTape ${translate ? "translateImg" : ""}`} src="/cassette-tape.png"/>
+          <h4>Click on the image to start creating your mixtape</h4>
+        </div>
+
+      </main>
+    </div>
+  );
 }
 
 export default TapeImage;

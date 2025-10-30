@@ -2,8 +2,7 @@ import Image from "next/image";
 
 import { createClient } from '@/utils/supabase/server';
 
-import TapeImage from "./tapeImage";
-import TapeImageParent from "./tapeImageParent";
+import TapeImage from "./tapeImage"
 
 const supabaseClient = await createClient();
 
@@ -20,7 +19,7 @@ const Home: React.FC = () => {
     <div >
       <main >
         <div className="bodyParent">
-          <TapeImageParent />
+          <TapeImage/>
           {/* <h1>{JSON.stringify(cassette, null, 2)}</h1> */}
         </div>
 

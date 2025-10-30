@@ -11,10 +11,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .cassetteTape {
-    width: 25%;
+    /* width: 25%; */
   }
 
 @media (max-width: 768px) {
