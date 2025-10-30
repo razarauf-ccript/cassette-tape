@@ -1,7 +1,13 @@
-"use client"
 import React, { ReactNode } from "react"
 
-export default function TapeImage() : ReactNode | Promise<ReactNode> {
-    let [translate, setTranslate] = React.useState(false);
-    return <img onClick={() => {setTranslate(true)}} className={`cassetteTape ${translate ? "translateImg" : ""}`} src="/cassette-tape.png"/>
+interface TapeImageComponentProps {
+    onButtonClick: (message: string) => void; // Function taking a string and returning nothing
 }
+
+const TapeImage : React.FC<TapeImageComponentProps> = ({onButtonClick}) => {
+    let [translate, setTranslate] = React.useState(false);
+    // return <img onClick={() => {setTranslate(true)}} className={`cassetteTape ${translate ? "translateImg" : ""}`} src="/cassette-tape.png"/>
+    return (<img onClick={() => onButtonClick("Hello from Child!")} src="/cassette-tape.png"/>)
+}
+
+export default TapeImage;
