@@ -1,10 +1,12 @@
-/*
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
 
+/*
 #FCF9EA
 #BADFDB
 #FFA4A4
 #FFBDBD
-
 */
 
 .bodyParent {
@@ -15,14 +17,8 @@
 }
 
 .cassetteTape {
-    /* width: 25%; */
-  }
-
-@media (max-width: 768px) {
-  .cassetteTape {
     width: 75%;
   }
-}
 
 @keyframes tapeAnimation {
   from {transform: translateY(0px);}

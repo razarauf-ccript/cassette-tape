@@ -1,15 +1,15 @@
 import Image from "next/image";
-
 import { createClient } from '@/utils/supabase/server';
-
-import TapeImage from "./tapeImage"
+import TapeImage from "./tapeRedirector"
 
 const supabaseClient = await createClient();
 
+const Home = async () => {
 
-const Home: React.FC = () => {
+  // const { data } = await supabaseClient.from("cassette").select();
+  // const cassette : Cassete[] = data || [];
+  // console.log(cassette)
 
-  // const { data: cassette } = await supabaseClient.from("cassette").select();
   // const { data: cassette, error } = await supabaseClient.from("cassette").insert({cassette_name: "My Mixtape"}).select();
   // if (error) {
   //   console.log(error)
@@ -17,9 +17,9 @@ const Home: React.FC = () => {
 
   return (
     <div >
-      <main >
+      <main>
         <div className="bodyParent">
-          <TapeImage/>
+          <TapeImage />
           {/* <h1>{JSON.stringify(cassette, null, 2)}</h1> */}
         </div>
 
