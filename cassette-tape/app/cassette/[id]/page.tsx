@@ -15,12 +15,9 @@ export default async function CassettePage({
   // console.log(id);
 
   return (
-    <div >
+    <div>
       <main>
-        <div className="bodyParent">
           <TapeCreator id={id} />
-          {/* <h1>{JSON.stringify(cassette, null, 2)}</h1> */}
-        </div>
       </main>
     </div>
   );

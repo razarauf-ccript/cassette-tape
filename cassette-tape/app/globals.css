@@ -9,15 +9,16 @@
 #FFBDBD
 */
 
-.bodyParent {
+.parent {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
 }
 
 .cassetteTape {
-    width: 75%;
+    width: 50%;
   }
 
 @keyframes tapeAnimation {
@@ -32,6 +33,47 @@
 }
 
 body {
-  background: #FCF9EA;
+  background: #fcf9ea;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.icons-parent-holder {
+  display: flex;
+  justify-content: end;
+}
+
+.icons-parent{
+  display: flex;
+  width: 50px;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.icons {
+  width: 20px;
+}
+
+.note {
+  margin-top: 100px;
+}
+
+.button-group {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+}
+
+.button {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.input-box {
+  border-radius: 10px;
+  font-size: large;
+  height: 50px;
+  width: 400px;
+  margin: 50px 0px;
 }
