@@ -18,11 +18,7 @@ const Home = async () => {
   return (
     <div >
       <main>
-        <div className="bodyParent">
           <TapeImage />
-          {/* <h1>{JSON.stringify(cassette, null, 2)}</h1> */}
-        </div>
-
       </main>
     </div>
   );

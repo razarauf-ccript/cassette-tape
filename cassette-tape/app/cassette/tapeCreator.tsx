@@ -25,7 +25,7 @@ export default function TapeCreator({ id }: { id: string }) {
       <h4 className="note">My Mixtape</h4>
       <div className="button-group">
         <input className="button" type="button" value="bg" style={{backgroundColor: "#FCF9EA"}} />
-        <input className="button" type="button" value="bg" style={{backgroundColor: "#FAB12F"}} />
+        <input className="button" type="button" value="bg" style={{backgroundColor: "#A8BBA3"}} />
         <input className="button" type="button" value="bg" style={{backgroundColor: "#FA812F"}} />
         <input className="button" type="button" value="bg" style={{backgroundColor: "#FFBDBD"}} />
         <input className="button" type="button" value="bg" style={{backgroundColor: "#E5D0AC"}} />
