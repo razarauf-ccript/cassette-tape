@@ -76,9 +76,8 @@ export default function TapeCreator({ id }: { id: number }) {
         </div>
       </div>
       <img className={`cassetteTape ${translate ? "translateImg" : ""}`} src="/cassette-tape.png" />
-      <h4>Click on the image to start creating your mixtape</h4>
       {formData.name && <h2 className="mixtape-title">{formData.name}</h2>}
-      {formData.note && <h3 className="mixtape-title">{formData.note}</h3>}
+      {formData.note && <h3 className="mixtape-note">{formData.note}</h3>}
       {!editting &&
         <form className="input-parent" onSubmit={onSubmitHandler} >
           <div className="button-group">
@@ -91,7 +90,7 @@ export default function TapeCreator({ id }: { id: number }) {
           <input className="input-box" type="text" name="name" value={formData.name || ""} onChange={changeHandler} placeholder="Title of your Mixtape" />
           <input className="input-box2" type="text" name="note" value={formData.note || ""} onChange={changeHandler} placeholder="Note" />
           <input className="input-box2" type="text" name="spotifyplaylist" value={formData.spotifyplaylist || ""} onChange={changeHandler} placeholder="Spotify Playlist Link" />
-          <input className="" type="submit" value="Submit" />
+          <input className="button-submit" type="submit" value="Submit" />
         </form>
       }
     </div>
