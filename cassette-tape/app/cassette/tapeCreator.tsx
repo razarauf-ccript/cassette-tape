@@ -22,9 +22,7 @@ export default function TapeCreator({ id }: { id: number }) {
   }
 
   const onClickBGChange = (e: React.ChangeEvent<any>) => {
-    // console.log(event.target.style.backgroundColor);
     document.body.style.backgroundColor = e.target.style.backgroundColor;
-    // setBackgroundColor(e.target.style.backgroundColor);
     setFormData(prevData => ({
       ...prevData,
       backgroundColor: e.target.style.backgroundColor
@@ -56,7 +54,7 @@ export default function TapeCreator({ id }: { id: number }) {
     setTranslate(true);
     GetTape(id)
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setFormData(
           {
             id: data.id,
@@ -64,8 +62,9 @@ export default function TapeCreator({ id }: { id: number }) {
             backgroundColor: data.background_color,
             note: data.note,
             spotifyplaylist: data.spotify_link
-          })
-      }).then(() => document.body.style.backgroundColor = formData.backgroundColor);
+          });
+          document.body.style.backgroundColor = data.background_color;
+      });
   }, []);
 
   return (
@@ -81,7 +80,7 @@ export default function TapeCreator({ id }: { id: number }) {
       {formData.name && <h2 className="mixtape-title">{formData.name}</h2>}
       {formData.note && <h3 className="mixtape-title">{formData.note}</h3>}
       {!editting &&
-        <form onSubmit={onSubmitHandler} >
+        <form className="input-parent" onSubmit={onSubmitHandler} >
           <div className="button-group">
             <input className="button" type="button" name="backgroundColor" onClick={onClickBGChange} style={{ backgroundColor: "#FCF9EA" }} />
             <input className="button" type="button" name="backgroundColor" onClick={onClickBGChange} style={{ backgroundColor: "#A8BBA3" }} />
@@ -92,7 +91,7 @@ export default function TapeCreator({ id }: { id: number }) {
           <input className="input-box" type="text" name="name" value={formData.name || ""} onChange={changeHandler} placeholder="Title of your Mixtape" />
           <input className="input-box2" type="text" name="note" value={formData.note || ""} onChange={changeHandler} placeholder="Note" />
           <input className="input-box2" type="text" name="spotifyplaylist" value={formData.spotifyplaylist || ""} onChange={changeHandler} placeholder="Spotify Playlist Link" />
-          <input type="submit" value="Submit" />
+          <input className="" type="submit" value="Submit" />
         </form>
       }
     </div>
