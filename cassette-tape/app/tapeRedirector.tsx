@@ -6,7 +6,7 @@ import { CreateTape } from "./cassette/action";
 
 const TapeImage: React.FC = () => {
   const onClickHandler = async () => {
-    const cassette = await CreateTape();
+    const cassette = await CreateTape("My Mixtape", "rgba(255, 255, 255, 1)");
     if (cassette) {
       redirect('/cassette/'+cassette.id, RedirectType.replace)
     } 

@@ -11,13 +11,12 @@ export default async function CassettePage({
 }) {
 
   const { id } = await params
-
-  // console.log(id);
+  let idd = Number(id);
 
   return (
     <div>
       <main>
-          <TapeCreator id={id} />
+          <TapeCreator id={idd} />
       </main>
     </div>
   );
