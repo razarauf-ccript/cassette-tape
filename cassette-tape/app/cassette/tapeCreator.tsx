@@ -72,7 +72,7 @@ export default function TapeCreator({ id }: { id: number }) {
       <div className="icons-parent-holder" style={{ alignSelf: "end" }}>
         <div className="icons-parent">
           <img className="icons" onClick={editableOnClickHandler} title={editting ? `edit?` : 'preview'} src={editting ? `/pen.png` : `/visible.png`} />
-          <img className="icons" src="/send.png" />
+          <img className="icons" title="click to copy" onClick={() => navigator.clipboard.writeText(formData.spotifyplaylist)} src="/send.png" />
         </div>
       </div>
       <img className={`cassetteTape ${translate ? "translateImg" : ""}`} src="/cassette-tape.png" />
