@@ -2,7 +2,7 @@ import Image from "next/image";
 import { createClient } from '@/utils/supabase/server';
 import TapeImage from "./tapeRedirector"
 
-const supabaseClient = await createClient();
+// const supabaseClient = await createClient();
 
 const Home = async () => {
 
