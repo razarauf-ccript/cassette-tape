@@ -1,6 +1,9 @@
+// app/callback/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req : NextRequest) {
+  console.log("callback");
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
 
@@ -35,16 +38,16 @@ export async function GET(req : NextRequest) {
     }
 
     const data = await response.json();
-    const { access_token } = data;
+    const { access_token, refresh_token, expires_at } = data;
 
-    console.log(data)
-    console.log(access_token);
-
+    // console.log(access_token);
     // Redirect to homepage (or wherever you want)
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/?token="+access_token, req.url));
+
+    // NextResponse.next().cookies.set(data, data);
 
   } catch (error) {
     console.error("Spotify token exchange error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }

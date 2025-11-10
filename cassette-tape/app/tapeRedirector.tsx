@@ -16,7 +16,7 @@ const TapeImage: React.FC = () => {
     <div >
       <main>
         <div className="parent">
-          <img onClick={onClickHandler} className="cassetteTape" src="/cassette-tape.png"/>
+          <img onClick={onClickHandler} className="cassetteTape" src="/cassette-tape-2.png"/>
           <h4>Click on the image to start creating your mixtape</h4>
         </div>
 

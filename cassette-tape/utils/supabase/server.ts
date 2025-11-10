@@ -5,7 +5,7 @@ export async function createClient() {
   const cookieStore = await cookies()
 
   return createServerClient(
-    process.env.SUPABASE_URL!,
+    "https://mtywcsebxqildjrildzu.supabase.co",
     process.env.SUPABASE_ANON_KEY!,
     {
       cookies: {
@@ -14,6 +14,7 @@ export async function createClient() {
         },
         setAll(cookiesToSet) {
           try {
+            console.log(process.env.SUPABASE_URL)
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
             )
