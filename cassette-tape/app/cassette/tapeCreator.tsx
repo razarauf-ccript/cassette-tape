@@ -81,7 +81,7 @@ export default function TapeCreator({ id }: { id: number }) {
       {formData.name && <h2 className="mixtape-title">{formData.name}</h2>}
       <img className={`cassetteTape ${translate ? "translateImg" : ""}`} style={{zIndex: -99}} src="/cassette-tape-2.png" />
       <div className="spotify-player">
-        <SpotifyPlayer />
+        <SpotifyPlayer spotifyPlaylist={formData.spotifyplaylist} />
       </div>
 
       {formData.note && <h3 className="mixtape-note">{formData.note}</h3>}

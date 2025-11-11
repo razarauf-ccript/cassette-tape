@@ -1,11 +1,12 @@
 
 import { useRef, useState, useEffect } from "react";
 
-export default function SpotifyPlayer() {
+export default function SpotifyPlayer({ spotifyPlaylist }) {
     const embedRef = useRef(null);
     const spotifyEmbedControllerRef = useRef(null);
     const [iFrameAPI, setIFrameAPI] = useState(undefined);
     const [playerLoaded, setPlayerLoaded] = useState(false);
+
     const [uri, setUri] = useState("spotify:playlist:37i9dQZF1DZ06evO3eIivx");
 
     useEffect(() => {
@@ -80,6 +81,8 @@ export default function SpotifyPlayer() {
         };
     }, [playerLoaded, iFrameAPI, uri]);
 
+
+
     // const onPauseClick = () => {
     //     if (spotifyEmbedControllerRef.current) {
     //         spotifyEmbedControllerRef.current.pause();
@@ -99,8 +102,16 @@ export default function SpotifyPlayer() {
         }
     };
 
+    useEffect(() => {
+        let tmp = spotifyPlaylist.match(/playlist\/(.*)/) === null ? "" : "spotify:playlist:" + spotifyPlaylist.match(/playlist\/(.*)/)[1];
+        setUri(tmp);
+        if (playerLoaded && spotifyEmbedControllerRef.current) {
+            spotifyEmbedControllerRef.current.loadUri(uri);
+        }
+    }, [spotifyPlaylist])
+
     return (
-        <div>
+        <>
             <div ref={embedRef} />
             {!playerLoaded && <p>Loading...</p>}
             {/* <div>
@@ -114,14 +125,14 @@ export default function SpotifyPlayer() {
             <div>
                 {/* <p>Change URI:</p> */}
                 <input
-                className="input-box"
+                    className="input-box"
                     type="text"
                     value={uri}
                     onChange={onUriChange}
                     placeholder="Enter Spotify URI"
-                    style={{display: "none"}}
+                    style={{ display: "none" }}
                 />
             </div>
-        </div>
+        </>
     );
 }
