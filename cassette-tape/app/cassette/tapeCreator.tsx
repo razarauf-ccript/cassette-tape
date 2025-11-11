@@ -78,7 +78,7 @@ export default function TapeCreator({ id }: { id: number }) {
           <img className="icons" title="click to copy" onClick={() => navigator.clipboard.writeText(formData.spotifyplaylist)} src="/send.png" />
         </div>
       </div>
-      {formData.name && <h2 className="mixtape-title translateImg">{formData.name}</h2>}
+      {formData.name && <h2 className="mixtape-title">{formData.name}</h2>}
       <img className={`cassetteTape ${translate ? "translateImg" : ""}`} style={{zIndex: -99}} src="/cassette-tape-2.png" />
       <div className="spotify-player">
         <SpotifyPlayer />

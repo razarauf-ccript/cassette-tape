@@ -18,7 +18,7 @@
 }
 
 .cassetteTape {
-    margin-top: 200px;
+    /* margin-top: 200px; */
     width: 40%;
   }
 
@@ -69,8 +69,8 @@ body {
 }
 
 .mixtape-title {
-  /* margin-top: 100px; */
-  margin-bottom: -415px;
+  /* margin-top: 50px 0px 0px 0px; */
+  /* margin-bottom: -415px; */
   background-color: cornflowerblue;
   padding: 15px;
 }
