@@ -1,4 +1,19 @@
 import React, { useState, useEffect } from 'react';
+/*
+declare global {
+      interface Window {
+        onSpotifyWebPlaybackSDKReady: () => void;
+      }
+    }
+
+declare global {
+      interface Window {
+        Spotify: () => {
+            Player: (name:string, getOAuthToken:(cb:any) => {}, volume: number) => {}
+        };
+      }
+    }
+
 
 const track = {
     name: "",
@@ -106,3 +121,4 @@ function WebPlayback(props : any) {
 }
 
 export default WebPlayback
+*/

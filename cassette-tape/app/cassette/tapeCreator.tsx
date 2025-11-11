@@ -1,6 +1,7 @@
 "use client"
 import React from "react"
 import { GetTape, UpdateTape } from "./action";
+import SpotifyPlayer from "./spotifyPlayer";
 
 interface FormData {
   id: number;
@@ -45,7 +46,7 @@ export default function TapeCreator({ id }: { id: number }) {
   function onSubmitHandler(e: React.ChangeEvent<any>) {
     console.log("form submit")
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     UpdateTape(formData.id, formData.name, formData.backgroundColor, formData.note, formData.spotifyplaylist);
   }
 
@@ -54,7 +55,7 @@ export default function TapeCreator({ id }: { id: number }) {
     setTranslate(true);
     GetTape(id)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setFormData(
           {
             id: data.id,
@@ -65,18 +66,24 @@ export default function TapeCreator({ id }: { id: number }) {
           });
           document.body.style.backgroundColor = data.background_color;
       });
+
   }, []);
 
   return (
     <div className="parent">
+
       <div className="icons-parent-holder" style={{ alignSelf: "end" }}>
         <div className="icons-parent">
           <img className="icons" onClick={editableOnClickHandler} title={editting ? `edit?` : 'preview'} src={editting ? `/pen.png` : `/visible.png`} />
           <img className="icons" title="click to copy" onClick={() => navigator.clipboard.writeText(formData.spotifyplaylist)} src="/send.png" />
         </div>
       </div>
-      <img className={`cassetteTape ${translate ? "translateImg" : ""}`} src="/cassette-tape-2.png" />
-      {formData.name && <h2 className="mixtape-title">{formData.name}</h2>}
+      {formData.name && <h2 className="mixtape-title translateImg">{formData.name}</h2>}
+      <img className={`cassetteTape ${translate ? "translateImg" : ""}`} style={{zIndex: -99}} src="/cassette-tape-2.png" />
+      <div className="spotify-player">
+        <SpotifyPlayer />
+      </div>
+
       {formData.note && <h3 className="mixtape-note">{formData.note}</h3>}
       {!editting &&
         <form className="input-parent" onSubmit={onSubmitHandler} >
