@@ -123,3 +123,14 @@ body {
   border-radius: 10px;
   margin-bottom: 50px;
 }
+
+.toast {
+  height: 40px;
+  width: 200px;
+  font-weight: bold;
+  font-size: large;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  text-align: center;
+  color: black; 
+}

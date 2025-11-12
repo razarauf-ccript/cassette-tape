@@ -16,6 +16,7 @@ export default function TapeCreator({ id }: { id: number }) {
 
   let [translate, setTranslate] = React.useState(false);
   let [editting, setEditting] = React.useState(false);
+  let [submitted, setSubmitted] = React.useState(false);
 
   const [formData, setFormData] = React.useState<FormData>({ id: id, name: "My Mixtape", note: "New Note", spotifyplaylist: "https://spotify.com", backgroundColor: "", fontColor: "" })
 
@@ -30,16 +31,16 @@ export default function TapeCreator({ id }: { id: number }) {
     if (e.target.style.backgroundColor == "rgb(252, 249, 234)") {
       document.body.style.backgroundColor = e.target.style.backgroundColor;
       document.body.style.color = "#a8a699ff";
-    } else if (e.target.style.backgroundColor == "rgb(168, 187, 163)"){
+    } else if (e.target.style.backgroundColor == "rgb(168, 187, 163)") {
       document.body.style.backgroundColor = e.target.style.backgroundColor;
       document.body.style.color = "#687465ff";
-    } else if (e.target.style.backgroundColor == "rgb(250, 129, 47)"){
+    } else if (e.target.style.backgroundColor == "rgb(250, 129, 47)") {
       document.body.style.backgroundColor = e.target.style.backgroundColor;
       document.body.style.color = "#a95720ff";
-    }else if (e.target.style.backgroundColor == "rgb(255, 189, 189)"){
+    } else if (e.target.style.backgroundColor == "rgb(255, 189, 189)") {
       document.body.style.backgroundColor = e.target.style.backgroundColor;
       document.body.style.color = "#a47777ff";
-    }else if (e.target.style.backgroundColor == "rgb(229, 208, 172)"){
+    } else if (e.target.style.backgroundColor == "rgb(229, 208, 172)") {
       document.body.style.backgroundColor = e.target.style.backgroundColor;
       document.body.style.color = "#a6977eff";
     }
@@ -55,9 +56,6 @@ export default function TapeCreator({ id }: { id: number }) {
 
   function changeHandler(e: React.ChangeEvent<any>) {
     const { name, value } = e.target;
-
-    // console.log(name + " "  + value)
-
     setFormData(prevData => ({
       ...prevData,
       [name]: value
@@ -67,16 +65,14 @@ export default function TapeCreator({ id }: { id: number }) {
   function onSubmitHandler(e: React.ChangeEvent<any>) {
     console.log("form submit")
     e.preventDefault();
-    // console.log(formData);
     UpdateTape(formData.id, formData.name, formData.backgroundColor, formData.note, formData.spotifyplaylist, formData.fontColor);
+    setSubmitted(true);
   }
 
   React.useEffect(() => {
-    // console.log("useeffect called")
     setTranslate(true);
     GetTape(id)
       .then((data) => {
-        // console.log(data);
         setFormData(
           {
             id: data.id,
@@ -86,13 +82,14 @@ export default function TapeCreator({ id }: { id: number }) {
             note: data.note,
             spotifyplaylist: data.spotify_link
           });
-          document.body.style.backgroundColor = data.background_color;
-          document.body.style.color = data.font_color;
+        document.body.style.backgroundColor = data.background_color;
+        document.body.style.color = data.font_color;
       });
 
   }, []);
 
   return (
+    <>
     <div className="parent">
 
       <div className="icons-parent-holder" style={{ alignSelf: "end" }}>
@@ -102,7 +99,7 @@ export default function TapeCreator({ id }: { id: number }) {
         </div>
       </div>
       {formData.name && <h2 className="mixtape-title">{formData.name}</h2>}
-      <img className={`cassetteTape ${translate ? "translateImg" : ""}`} style={{zIndex: -99}} src="/cassette-tape-2.png" />
+      <img className={`cassetteTape ${translate ? "translateImg" : ""}`} style={{ zIndex: -99 }} src="/cassette-tape-2.png" />
       <div className="spotify-player">
         <SpotifyPlayer spotifyPlaylist={formData.spotifyplaylist} />
 
@@ -122,8 +119,14 @@ export default function TapeCreator({ id }: { id: number }) {
           <input className="input-box2" type="text" name="note" value={formData.note || ""} onChange={changeHandler} placeholder="Note" />
           <input className="input-box2" type="text" name="spotifyplaylist" value={formData.spotifyplaylist || ""} onChange={changeHandler} placeholder="Spotify Playlist Link" />
           <input className="button-submit" type="submit" value="Submit" />
-        </form>
+        </form>        
       }
+
+      <div className="toast" style={submitted ? {display: "block"} : {display: "none"}}>
+        Form Submitted!
+      </div>
     </div>
+    
+    </>
   );
 }
