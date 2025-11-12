@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server';
 import TapeImage from "./tapeRedirector"
 import React from "react";
 import Login from "./login";
-import WebPlayback from "./WebPlayback";
+// import WebPlayback from "./WebPlayback";
 
 // const supabaseClient = await createClient();
 
@@ -36,7 +36,7 @@ const GetToken = async () => {
   return (
     <div >
       <main>
-          { (token === '') ? <Login/> : <WebPlayback token={token} /> }
+          {/* { (token === '') ? <Login/> : <WebPlayback token={token} /> } */}
       </main>
     </div>
   );

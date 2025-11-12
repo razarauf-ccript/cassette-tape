@@ -1,138 +1,138 @@
 
-import { useRef, useState, useEffect } from "react";
+  import { useRef, useState, useEffect } from "react";
 
-export default function SpotifyPlayer({ spotifyPlaylist }) {
+  export default function App({spotifyPlaylist}) {
     const embedRef = useRef(null);
     const spotifyEmbedControllerRef = useRef(null);
     const [iFrameAPI, setIFrameAPI] = useState(undefined);
     const [playerLoaded, setPlayerLoaded] = useState(false);
-
-    const [uri, setUri] = useState("spotify:playlist:37i9dQZF1DZ06evO3eIivx");
+    const [uri, setUri] = useState("");
 
     useEffect(() => {
-        const script = document.createElement("script");
-        script.src = "https://open.spotify.com/embed/iframe-api/v1";
-        script.async = true;
-        document.body.appendChild(script);
-        return () => {
-            document.body.removeChild(script);
-        };
+      const script = document.createElement("script");
+      script.src = "https://open.spotify.com/embed/iframe-api/v1";
+      script.async = true;
+      document.body.appendChild(script);
+      return () => {
+        document.body.removeChild(script);
+      };
     }, []);
 
     useEffect(() => {
-        if (iFrameAPI) {
-            return;
-        }
+      if (iFrameAPI) {
+        return;
+      }
 
-        window.onSpotifyIframeApiReady = (SpotifyIframeApi) => {
-            setIFrameAPI(SpotifyIframeApi);
-        };
+      window.onSpotifyIframeApiReady = (SpotifyIframeApi) => {
+        setIFrameAPI(SpotifyIframeApi);
+      };
     }, [iFrameAPI]);
 
     useEffect(() => {
-        if (playerLoaded || iFrameAPI === undefined) {
-            return;
-        }
+      if (playerLoaded || iFrameAPI === undefined) {
+        return;
+      }
 
-        iFrameAPI.createController(
-            embedRef.current,
-            {
-                width: "100%",
-                height: "352",
-                uri: uri,
-            },
-            (spotifyEmbedController) => {
-                spotifyEmbedController.addListener("ready", () => {
-                    setPlayerLoaded(true);
-                });
+      iFrameAPI.createController(
+        embedRef.current,
+        {
+          width: "100%",
+          height: "352",
+          uri: uri,
+        },
+        (spotifyEmbedController) => {
+          spotifyEmbedController.addListener("ready", () => {
+            setPlayerLoaded(true);
+          });
 
-                const handlePlaybackUpdate = (e) => {
-                    const { position, duration, isBuffering, isPaused, playingURI } =
-                        e.data;
-                    console.log(
-                        `Playback State updates:
+          const handlePlaybackUpdate = (e) => {
+            const { position, duration, isBuffering, isPaused, playingURI } =
+              e.data;
+            console.log(
+              `Playback State updates:
               position - ${position},
               duration - ${duration},
               isBuffering - ${isBuffering},
               isPaused - ${isPaused},
               playingURI - ${playingURI},
               duration - ${duration}`
-                    );
-                };
+            );
+          };
 
-                spotifyEmbedController.addListener(
-                    "playback_update",
-                    handlePlaybackUpdate
-                );
+          spotifyEmbedController.addListener(
+            "playback_update",
+            handlePlaybackUpdate
+          );
 
-                spotifyEmbedController.addListener("playback_started", (e) => {
-                    const { playingURI } = e.data;
-                    console.log(`The playback has started for: ${playingURI}`);
-                });
+          spotifyEmbedController.addListener("playback_started", (e) => {
+            const { playingURI } = e.data;
+            console.log(`The playback has started for: ${playingURI}`);
+          });
 
-                spotifyEmbedControllerRef.current = spotifyEmbedController;
-            }
-        );
+          spotifyEmbedControllerRef.current = spotifyEmbedController;
+        }
+      );
 
-        return () => {
-            if (spotifyEmbedControllerRef.current) {
-                spotifyEmbedControllerRef.current.removeListener("playback_update");
-            }
-        };
+      return () => {
+        if (spotifyEmbedControllerRef.current) {
+          spotifyEmbedControllerRef.current.removeListener("playback_update");
+        }
+      };
     }, [playerLoaded, iFrameAPI, uri]);
 
+    useEffect(() => {
+        if (spotifyEmbedControllerRef.current) {
+        spotifyEmbedControllerRef.current.loadUri(spotifyPlaylist);
+      }
+    }, []);
 
+    useEffect(() => {
+        if (spotifyEmbedControllerRef.current) {
+        spotifyEmbedControllerRef.current.loadUri(spotifyPlaylist);
+      }
+    }, [spotifyPlaylist]);
 
     // const onPauseClick = () => {
-    //     if (spotifyEmbedControllerRef.current) {
-    //         spotifyEmbedControllerRef.current.pause();
-    //     }
+    //   if (spotifyEmbedControllerRef.current) {
+    //     spotifyEmbedControllerRef.current.pause();
+    //   }
     // };
 
     // const onPlayClick = () => {
-    //     if (spotifyEmbedControllerRef.current) {
-    //         spotifyEmbedControllerRef.current.play();
-    //     }
+    //   if (spotifyEmbedControllerRef.current) {
+    //     spotifyEmbedControllerRef.current.play();
+    //   }
     // };
 
     const onUriChange = (event) => {
-        setUri(event.target.value);
-        if (spotifyEmbedControllerRef.current) {
-            spotifyEmbedControllerRef.current.loadUri(event.target.value);
-        }
+      setUri(event.target.value);
+      if (spotifyEmbedControllerRef.current) {
+        spotifyEmbedControllerRef.current.loadUri(event.target.value);
+      }
     };
 
-    useEffect(() => {
-        let tmp = spotifyPlaylist.match(/playlist\/(.*)/) === null ? "" : "spotify:playlist:" + spotifyPlaylist.match(/playlist\/(.*)/)[1];
-        setUri(tmp);
-        if (playerLoaded && spotifyEmbedControllerRef.current) {
-            spotifyEmbedControllerRef.current.loadUri(uri);
-        }
-    }, [spotifyPlaylist])
-
     return (
-        <>
-            <div ref={embedRef} />
-            {!playerLoaded && <p>Loading...</p>}
-            {/* <div>
-                <button aria-label="Play" onClick={onPlayClick}>
-                    Play
-                </button>
-                <button aria-label="Pause" onClick={onPauseClick}>
-                    Pause
-                </button>
-            </div> */}
-            <div>
-                {/* <p>Change URI:</p> */}
-                <input
-                    className="input-box"
-                    type="text"
-                    value={uri}
-                    onChange={onUriChange}
-                    placeholder="Enter Spotify URI"
-                    style={{ display: "none" }}
-                />
-            </div>
-        </>
+      <div>
+        <div ref={embedRef} />
+        {!playerLoaded && <p>Loading...</p>}
+        {/* <div>
+          <button aria-label="Play" onClick={onPlayClick}>
+            Play
+          </button>
+          <button aria-label="Pause" onClick={onPauseClick}>
+            Pause
+          </button>
+        </div> */}
+        {/* <div>
+          <p>Change URI:</p>
+          <input
+            type="text"
+            value={uri}
+            onChange={onUriChange}
+            placeholder="Enter Spotify URI"
+          />
+        </div> */}
+      </div>
     );
-}
+  }
+  

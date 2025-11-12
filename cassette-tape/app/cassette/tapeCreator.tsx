@@ -8,6 +8,7 @@ interface FormData {
   name: string;
   note: string;
   backgroundColor: string;
+  fontColor: string;
   spotifyplaylist: string;
 }
 
@@ -16,20 +17,40 @@ export default function TapeCreator({ id }: { id: number }) {
   let [translate, setTranslate] = React.useState(false);
   let [editting, setEditting] = React.useState(false);
 
-  const [formData, setFormData] = React.useState<FormData>({ id: id, name: "My Mixtape", note: "New Note", spotifyplaylist: "https://spotify.com", backgroundColor: "" })
+  const [formData, setFormData] = React.useState<FormData>({ id: id, name: "My Mixtape", note: "New Note", spotifyplaylist: "https://spotify.com", backgroundColor: "", fontColor: "" })
 
   function editableOnClickHandler() {
     setEditting((prevValue) => !prevValue);
   }
 
   const onClickBGChange = (e: React.ChangeEvent<any>) => {
-    document.body.style.backgroundColor = e.target.style.backgroundColor;
+
+    console.log(e.target.style.backgroundColor)
+
+    if (e.target.style.backgroundColor == "rgb(252, 249, 234)") {
+      document.body.style.backgroundColor = e.target.style.backgroundColor;
+      document.body.style.color = "#a8a699ff";
+    } else if (e.target.style.backgroundColor == "rgb(168, 187, 163)"){
+      document.body.style.backgroundColor = e.target.style.backgroundColor;
+      document.body.style.color = "#687465ff";
+    } else if (e.target.style.backgroundColor == "rgb(250, 129, 47)"){
+      document.body.style.backgroundColor = e.target.style.backgroundColor;
+      document.body.style.color = "#a95720ff";
+    }else if (e.target.style.backgroundColor == "rgb(255, 189, 189)"){
+      document.body.style.backgroundColor = e.target.style.backgroundColor;
+      document.body.style.color = "#a47777ff";
+    }else if (e.target.style.backgroundColor == "rgb(229, 208, 172)"){
+      document.body.style.backgroundColor = e.target.style.backgroundColor;
+      document.body.style.color = "#a6977eff";
+    }
+
     setFormData(prevData => ({
       ...prevData,
-      backgroundColor: e.target.style.backgroundColor
+      backgroundColor: e.target.style.backgroundColor,
+      fontColor: document.body.style.color
     }))
 
-    console.log(formData)
+    // console.log(formData)
   }
 
   function changeHandler(e: React.ChangeEvent<any>) {
@@ -47,7 +68,7 @@ export default function TapeCreator({ id }: { id: number }) {
     console.log("form submit")
     e.preventDefault();
     // console.log(formData);
-    UpdateTape(formData.id, formData.name, formData.backgroundColor, formData.note, formData.spotifyplaylist);
+    UpdateTape(formData.id, formData.name, formData.backgroundColor, formData.note, formData.spotifyplaylist, formData.fontColor);
   }
 
   React.useEffect(() => {
@@ -61,10 +82,12 @@ export default function TapeCreator({ id }: { id: number }) {
             id: data.id,
             name: data.cassette_name,
             backgroundColor: data.background_color,
+            fontColor: data.fontColor,
             note: data.note,
             spotifyplaylist: data.spotify_link
           });
           document.body.style.backgroundColor = data.background_color;
+          document.body.style.color = data.font_color;
       });
 
   }, []);
@@ -82,6 +105,7 @@ export default function TapeCreator({ id }: { id: number }) {
       <img className={`cassetteTape ${translate ? "translateImg" : ""}`} style={{zIndex: -99}} src="/cassette-tape-2.png" />
       <div className="spotify-player">
         <SpotifyPlayer spotifyPlaylist={formData.spotifyplaylist} />
+
       </div>
 
       {formData.note && <h3 className="mixtape-note">{formData.note}</h3>}

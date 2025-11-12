@@ -8,10 +8,10 @@ export const CreateTape = async (title:String, backgroundColor:String) => {
     return Cassete; 
 }
 
-export const UpdateTape = async (id:number, title:String, backgroundColor:String, note:String, spotifyLink:String) => {
+export const UpdateTape = async (id:number, title:String, backgroundColor:String, note:String, spotifyLink:String, fontColor:string) => {
     const supabaseClient = await createClient();
     // console.log("id = " + id     )
-    const { error } = await supabaseClient.from("cassette").update({cassette_name: title, background_color: backgroundColor, note: note, spotify_link: spotifyLink}).eq('id', id);
+    const { error } = await supabaseClient.from("cassette").update({cassette_name: title, background_color: backgroundColor, note: note, spotify_link: spotifyLink, font_color: fontColor}).eq('id', id);
     // console.log(error); 
     return 1; 
 }
