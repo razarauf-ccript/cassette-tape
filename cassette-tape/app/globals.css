@@ -131,7 +131,11 @@ body {
   font-weight: bold;
   font-size: large;
   border-radius: 10px;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
+}
+
+.space{
+  margin-bottom: 100px;
 }
 
 .toast {

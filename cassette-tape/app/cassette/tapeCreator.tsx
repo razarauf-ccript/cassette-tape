@@ -70,6 +70,11 @@ export default function TapeCreator({ id }: { id: number }) {
     setSubmitted(true);
   }
 
+  function shareOnClickHandler(){
+    navigator.clipboard.writeText(window.location.href)
+    setAnimateShareBTN(true);
+  }
+
   React.useEffect(() => {
     setTranslate(true);
     GetTape(id)
@@ -91,20 +96,23 @@ export default function TapeCreator({ id }: { id: number }) {
 
   React.useEffect(() => {
     if (animateShareBTN) {
-      // Remove the class after the animation completes
       const timer = setTimeout(() => {
         setAnimateShareBTN(false);
-      }, 500); // Match this duration to your CSS animation-duration
+      }, 500);
 
       return () => clearTimeout(timer);
     }
   }, [animateShareBTN])
 
+  React.useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => {
+        setSubmitted(false);
+      }, 1000);
 
-  function shareOnClickHandler(){
-    navigator.clipboard.writeText(window.location.href)
-    setAnimateShareBTN(true);
-  }
+      return () => clearTimeout(timer);
+    }
+  }, [submitted])
 
   return (
     <>
@@ -143,6 +151,7 @@ export default function TapeCreator({ id }: { id: number }) {
       <div className="toast" style={submitted ? {display: "block"} : {display: "none"}}>
         Form Submitted!
       </div>
+      <div className="space"></div>
     </div>
     
     </>
