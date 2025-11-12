@@ -46,6 +46,16 @@
   animation-fill-mode: forwards;
 }
 
+@keyframes shareAnimation {
+  from {transform: translate(0px, 0px);}
+  to {transform: translate(75px, -75px);}
+}
+
+.translateShareIcon {
+  animation-name: shareAnimation; 
+  animation-duration: 0.5s;
+}
+
 body {
   background: rgba(255, 255, 255, 1);
   font-family: Arial, Helvetica, sans-serif;

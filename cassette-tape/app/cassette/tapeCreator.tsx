@@ -17,6 +17,7 @@ export default function TapeCreator({ id }: { id: number }) {
   let [translate, setTranslate] = React.useState(false);
   let [editting, setEditting] = React.useState(false);
   let [submitted, setSubmitted] = React.useState(false);
+  let [animateShareBTN, setAnimateShareBTN] = React.useState(false);
 
   const [formData, setFormData] = React.useState<FormData>({ id: id, name: "My Mixtape", note: "New Note", spotifyplaylist: "https://spotify.com", backgroundColor: "", fontColor: "" })
 
@@ -26,7 +27,7 @@ export default function TapeCreator({ id }: { id: number }) {
 
   const onClickBGChange = (e: React.ChangeEvent<any>) => {
 
-    console.log(e.target.style.backgroundColor)
+    // console.log(e.target.style.backgroundColor)
 
     if (e.target.style.backgroundColor == "rgb(252, 249, 234)") {
       document.body.style.backgroundColor = e.target.style.backgroundColor;
@@ -88,6 +89,23 @@ export default function TapeCreator({ id }: { id: number }) {
 
   }, []);
 
+  React.useEffect(() => {
+    if (animateShareBTN) {
+      // Remove the class after the animation completes
+      const timer = setTimeout(() => {
+        setAnimateShareBTN(false);
+      }, 500); // Match this duration to your CSS animation-duration
+
+      return () => clearTimeout(timer);
+    }
+  }, [animateShareBTN])
+
+
+  function shareOnClickHandler(){
+    navigator.clipboard.writeText(window.location.href)
+    setAnimateShareBTN(true);
+  }
+
   return (
     <>
     <div className="parent">
@@ -95,11 +113,11 @@ export default function TapeCreator({ id }: { id: number }) {
       <div className="icons-parent-holder" style={{ alignSelf: "end" }}>
         <div className="icons-parent">
           <img className="icons" onClick={editableOnClickHandler} title={editting ? `edit?` : 'preview'} src={editting ? `/pen.png` : `/visible.png`} />
-          <img className="icons" title="click to copy" onClick={() => navigator.clipboard.writeText(formData.spotifyplaylist)} src="/send.png" />
+          <img className={`icons ${animateShareBTN && "translateShareIcon"}`} title="Click to copy" onClick={shareOnClickHandler} src="/send.png" />
         </div>
       </div>
       {formData.name && <h2 className="mixtape-title">{formData.name}</h2>}
-      <img className={`cassetteTape ${translate ? "translateImg" : ""}`} style={{ zIndex: -99 }} src="/cassette-tape-2.png" />
+      <img className={`cassetteTape ${translate && "translateImg"}`} style={{ zIndex: -99 }} src="/cassette-tape-2.png" />
       <div className="spotify-player">
         <SpotifyPlayer spotifyPlaylist={formData.spotifyplaylist} />
 
